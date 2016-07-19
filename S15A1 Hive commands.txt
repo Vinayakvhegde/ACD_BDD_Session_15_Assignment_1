@@ -1,0 +1,94 @@
+CREATE TABLE IF NOT EXISTS TitanicTextData (
+PsgId int, 
+Survived int, 
+PsgClass int, 
+Name String, 
+Sex String, 
+Age int, 
+SibLp String, 
+Parch String, 
+Ticket int, 
+Fare float, 
+Cabin String, 
+Departure String )
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE ;
+
+LOAD DATA INPATH 'class15A1/TitanicData.txt' INTO TABLE TitanicTextData ;
+
+SELECT Name FROM TitanicTextData ;
+
+CREATE TABLE IF NOT EXISTS TitanicSqenData (
+PsgId int, 
+Survived int, 
+PsgClass int, 
+Name String, 
+Sex String, 
+Age int, 
+SibLp String, 
+Parch String, 
+Ticket int, 
+Fare float, 
+Cabin String, 
+Departure String )
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+STORED AS SEQUENCEFILE ;
+
+INSERT OVERWRITE TABLE TitanicSqenData
+SELECT * FROM TitanicTextData ;
+
+SELECT Name FROM TitanicSqenData ;
+
+
+CREATE TABLE IF NOT EXISTS TitanicRCFileData (
+PsgId int, 
+Survived int, 
+PsgClass int, 
+Name String, 
+Sex String, 
+Age int, 
+SibLp String, 
+Parch String, 
+Ticket int, 
+Fare float, 
+Cabin String, 
+Departure String )
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+STORED AS RCFILE ;
+
+INSERT OVERWRITE TABLE TitanicRCFileData
+SELECT * FROM TitanicTextData ;
+
+SELECT Name FROM TitanicRCFileData ;
+
+CREATE TABLE IF NOT EXISTS TitanicORCData (
+PsgId int, 
+Survived int, 
+PsgClass int, 
+Name String, 
+Sex String, 
+Age int, 
+SibLp String, 
+Parch String, 
+Ticket int, 
+Fare float, 
+Cabin String, 
+Departure String )
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+STORED AS ORC ;
+
+INSERT OVERWRITE TABLE TitanicORCData
+SELECT * FROM TitanicTextData ;
+
+SELECT Name FROM TitanicORCData ;
+
+
+
